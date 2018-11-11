@@ -756,6 +756,11 @@ public final class Utilities {
         return prefs.getBoolean(Homescreen.KEY_FEED_INTEGRATION, false);
     }
 
+    public static boolean showQuickspace(Context context) {
+        SharedPreferences prefs = getPrefs(context.getApplicationContext());
+        return prefs.getBoolean(Homescreen.KEY_SHOW_QUICKSPACE, true);
+    }
+
     public static void restart(final Context context) {
         //ProgressDialog.show(context, null, context.getString(R.string.state_loading), true, false);
         new LooperExecutor(LauncherModel.getWorkerLooper()).execute(() -> {

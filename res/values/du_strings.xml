@@ -129,4 +129,11 @@
     <string name="bottom_search_bar_title">Show search bar at bottom</string>
     <string name="bottom_search_bar_summary">Show the search bar on the Dock</string>
 
+    <!-- Show quickspace -->
+    <string name="show_quickspace_title">At A Glance</string>
+    <string name="show_quickspace_summary">Show at the top of your Home screen</string>
+
+    <!-- QuickSpace -->
+    <string name="abbrev_wday_month_day_no_year">EEEMMMd</string>
+
 </resources>

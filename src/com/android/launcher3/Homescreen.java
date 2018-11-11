@@ -40,6 +40,7 @@ public class Homescreen extends SettingsActivity implements PreferenceFragment.O
 
     static final String KEY_FEED_INTEGRATION = "pref_feed_integration";
     static final String PREF_THEME_STYLE_KEY = "pref_theme_style";
+    static final String KEY_SHOW_QUICKSPACE = "pref_show_quickspace";
 
     @Override
     protected void onCreate(final Bundle bundle) {
@@ -79,6 +80,9 @@ public class Homescreen extends SettingsActivity implements PreferenceFragment.O
             actionBar=getActivity().getActionBar();
             assert actionBar != null;
             actionBar.setDisplayHomeAsUpEnabled(true);
+
+            SwitchPreference showQuickspace = (SwitchPreference)
+		    findPreference(KEY_SHOW_QUICKSPACE);
 
             SwitchPreference feedIntegration = (SwitchPreference)
                     findPreference(KEY_FEED_INTEGRATION);
@@ -146,6 +150,13 @@ public class Homescreen extends SettingsActivity implements PreferenceFragment.O
                     String newValue = (String) o;
                     int valueIndex = mThemeStyle.findIndexOfValue(newValue);
                     mThemeStyle.setSummary(mThemeStyle.getEntries()[valueIndex]);
+                    return true;
+                }
+            });
+
+            showQuickspace.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                 public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    LauncherAppState.getInstanceNoCreate().setNeedsRestart();
                     return true;
                 }
             });
