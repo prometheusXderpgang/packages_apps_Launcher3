@@ -35,15 +35,6 @@
     <!-- Sub categories -->
     <string name="home_grid_title">Grid layout</string>
     <string name="icon_layout_title">Icon layout</string>
-<<<<<<< HEAD:res/values/du_strings.xml
-=======
-    <string name="home_overall_title">Home layout</string>
-    <string name="home_quickspace_title">At A Glance</string>
-    <string name="home_hotseat_title">Dock</string>
-    <string name="app_overall_title">App list</string>
-    <string name="misc_recents_title">Recents</string>
-    <string name="misc_gestures_title">Gestures</string>
->>>>>>> bf95f2486... add option to change date format for QuickSpace:res/values/shishu_strings.xml
 
     <!-- Icon packs -->
     <string name="iconPackPackageDefault" translatable="false">""</string>
@@ -158,8 +149,14 @@
     <string name="date_format_long_name">Long</string>
     <string name="date_format_normal_name">Normal</string>
     <string name="date_format_short_name">Short</string>
+    <string name="date_format_daydate_long_name">Day (with number)</string>
+    <string name="date_format_daydate_short_name">Day (short with number)</string>
+    <string name="date_format_dayonly_name">Just today</string>
     <string name="date_format_long" translatable="false">EEEE, MMMM d</string>
     <string name="date_format_normal" translatable="false">EEEE, MMM d</string>
     <string name="date_format_short" translatable="false">EEE, MMM d</string>
+    <string name="date_format_daydate_long" translatable="false">EEEEd</string>
+    <string name="date_format_daydate_short" translatable="false">EEEd</string>
+    <string name="date_format_dayonly" translatable="false">EEEE</string>
 
 </resources>
