@@ -25,6 +25,7 @@ import static com.android.quickstep.TouchConsumer.INTERACTION_QUICK_SCRUB;
 import static com.android.systemui.shared.system.NavigationBarCompat.HIT_TARGET_BACK;
 import static com.android.systemui.shared.system.NavigationBarCompat.HIT_TARGET_ROTATION;
 
+import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.TargetApi;
@@ -64,6 +65,8 @@ import com.android.quickstep.views.LauncherRecentsView;
 import com.android.quickstep.views.RecentsView;
 import com.android.quickstep.views.RecentsViewContainer;
 import com.android.systemui.shared.system.RemoteAnimationTargetCompat;
+import com.android.quickstep.util.ClipAnimationHelper;
+import com.android.quickstep.views.TaskView;
 
 import java.util.Objects;
 import java.util.function.BiPredicate;

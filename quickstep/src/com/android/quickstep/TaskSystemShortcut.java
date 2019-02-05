@@ -271,11 +271,6 @@ public class TaskSystemShortcut<T extends SystemShortcut> extends SystemShortcut
         }
     }
 
-    private static void dismissTaskMenuView(BaseDraggingActivity activity) {
-        AbstractFloatingView.closeOpenViews(activity, true,
-                AbstractFloatingView.TYPE_ALL & ~AbstractFloatingView.TYPE_REBIND_SAFE);
-    }
-
     public static class KillApp extends TaskSystemShortcut {
 
         public KillApp() {
