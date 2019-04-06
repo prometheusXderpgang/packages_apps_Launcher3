@@ -159,7 +159,7 @@ public final class Utilities {
     }
 
     public static boolean showDesktopLabel(Context context) {
-        return getPrefs(context).getBoolean(DESKTOP_SHOW_LABEL, true);
+        return getPrefs(context).getBoolean(DESKTOP_SHOW_LABEL, false);
     }
 
     public static boolean showAllAppsLabel(Context context) {
@@ -264,7 +264,7 @@ public final class Utilities {
     }
 
     public static boolean isBottomSearchBarVisible(Context context) {
-        return getPrefs(context).getBoolean(BOTTOM_SEARCH_BAR_KEY, true);
+        return getPrefs(context).getBoolean(BOTTOM_SEARCH_BAR_KEY, false);
     }
 
     /**
@@ -753,7 +753,7 @@ public final class Utilities {
 
     static boolean hasFeedIntegration(Context context) {
         SharedPreferences prefs = getPrefs(context.getApplicationContext());
-        return prefs.getBoolean(Homescreen.KEY_FEED_INTEGRATION, true);
+        return prefs.getBoolean(Homescreen.KEY_FEED_INTEGRATION, false);
     }
 
     public static void restart(final Context context) {
