@@ -22,9 +22,9 @@ import android.graphics.drawable.Icon;
 import android.os.Handler;
 import android.provider.Settings;
 
-import com.android.internal.util.custom.weather.WeatherClient;
-import com.android.internal.util.custom.weather.WeatherClient.WeatherInfo;
-import com.android.internal.util.custom.weather.WeatherClient.WeatherObserver;
+import com.android.launcher3.quickspace.WeatherClient;
+import com.android.launcher3.quickspace.WeatherClient.WeatherInfo;
+import com.android.launcher3.quickspace.WeatherClient.WeatherObserver;
 
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class QuickspaceController implements WeatherObserver {
     private QuickEventsController mEventsController;
     private WeatherClient mWeatherClient;
     private WeatherInfo mWeatherInfo;
-    private WeatherSettingsObserver mWeatherSettingsObserver;
+    //private WeatherSettingsObserver mWeatherSettingsObserver;
 
     private boolean mUseImperialUnit;
 
@@ -51,12 +51,12 @@ public class QuickspaceController implements WeatherObserver {
         mEventsController = new QuickEventsController(context);
         mHandler = new Handler();
         if (WeatherClient.isAvailable(context)) {
-            mWeatherSettingsObserver = new WeatherSettingsObserver(
+            /*mWeatherSettingsObserver = new WeatherSettingsObserver(
                   mHandler, context.getContentResolver());
             mWeatherSettingsObserver.register();
-            mWeatherSettingsObserver.updateLockscreenUnit();
+            mWeatherSettingsObserver.updateLockscreenUnit();*/
             mWeatherClient = new WeatherClient(context);
-            mWeatherClient.addObserver(this);
+            //mWeatherClient.addObserver(this);
         }
     }
 
@@ -111,7 +111,7 @@ public class QuickspaceController implements WeatherObserver {
         });
     }
 
-    private class WeatherSettingsObserver extends ContentObserver {
+    /*private class WeatherSettingsObserver extends ContentObserver {
 
         private Handler mHandler;
         private ContentResolver mResolver;
@@ -137,5 +137,5 @@ public class QuickspaceController implements WeatherObserver {
             mUseImperialUnit = Settings.System.getInt(mResolver, SETTING_WEATHER_LOCKSCREEN_UNIT, 0) != 0;
             notifyListeners();
         }
-    }
+    }*/
 }

@@ -48,9 +48,10 @@
     <!-- Permissions for double tap gestures -->
     <uses-permission android:name="android.permission.DEVICE_POWER" />
     <uses-permission android:name="android.permission.CAMERA" />
-
+    <!--Recents -->
+    <uses-permission android:name="android.permission.READ_FRAME_BUFFER" />
     <!-- QuickSpace -->
-    <uses-permission android:name="com.android.providers.weather.READ_WEATHER" />
+    <uses-permission android:name="org.omnirom.omnijaws.READ_WEATHER" />
 
     <application
         android:backupAgent="com.android.launcher3.LauncherBackupAgent"
