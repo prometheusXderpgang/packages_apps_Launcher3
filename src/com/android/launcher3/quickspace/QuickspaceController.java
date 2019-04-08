@@ -22,25 +22,20 @@ import android.graphics.drawable.Icon;
 import android.os.Handler;
 import android.provider.Settings;
 
-import com.android.launcher3.quickspace.WeatherClient;
-import com.android.launcher3.quickspace.WeatherClient.WeatherInfo;
-import com.android.launcher3.quickspace.WeatherClient.WeatherObserver;
+import com.android.launcher3.quickspace.OmniJawsClient;
+import com.android.launcher3.quickspace.OmniJawsClient.WeatherInfo;
 
 import java.util.ArrayList;
 
-public class QuickspaceController implements WeatherObserver {
+public class QuickspaceController implements OmniJawsClient.OmniJawsObserver {
 
     public final ArrayList<OnDataListener> mListeners = new ArrayList();
-    private static final String SETTING_WEATHER_LOCKSCREEN_UNIT = "weather_lockscreen_unit";
 
     private Context mContext;
     private final Handler mHandler;
     private QuickEventsController mEventsController;
-    private WeatherClient mWeatherClient;
-    private WeatherInfo mWeatherInfo;
-    //private WeatherSettingsObserver mWeatherSettingsObserver;
-
-    private boolean mUseImperialUnit;
+    private OmniJawsClient mWeatherClient;
+    private OmniJawsClient.WeatherInfo mWeatherInfo;
 
     public interface OnDataListener {
         void onDataUpdated();
@@ -50,14 +45,7 @@ public class QuickspaceController implements WeatherObserver {
         mContext = context;
         mEventsController = new QuickEventsController(context);
         mHandler = new Handler();
-        if (WeatherClient.isAvailable(context)) {
-            /*mWeatherSettingsObserver = new WeatherSettingsObserver(
-                  mHandler, context.getContentResolver());
-            mWeatherSettingsObserver.register();
-            mWeatherSettingsObserver.updateLockscreenUnit();*/
-            mWeatherClient = new WeatherClient(context);
-            //mWeatherClient.addObserver(this);
-        }
+        mWeatherClient = new OmniJawsClient(context);
     }
 
     public void addListener(OnDataListener listener) {
@@ -78,23 +66,24 @@ public class QuickspaceController implements WeatherObserver {
     }
 
     public boolean isWeatherAvailable() {
-        return mWeatherInfo != null && mWeatherInfo.getStatus() == WeatherClient.WEATHER_UPDATE_SUCCESS;
-    }
-
-    public Icon getWeatherIcon() {
-        return Icon.createWithResource(mContext, mWeatherInfo.getWeatherConditionImage());
-    }
-
-    public String getWeatherTemp() {
-        int tempMetric = mWeatherInfo.getTemperature(true);
-        int tempImperial = mWeatherInfo.getTemperature(false);
-        String weatherTemp = mUseImperialUnit ?
-                Integer.toString(tempImperial) + "°F" :
-                Integer.toString(tempMetric) + "°C";
-        return weatherTemp;
+        return mWeatherClient.isOmniJawsServiceInstalled();
     }
 
     @Override
+    public void weatherError(int errorReason) {
+    }
+
+    @Override
+    public void weatherUpdated() {
+        queryAndUpdateWeather();
+    }
+
+    private void queryAndUpdateWeather() {
+        if (mWeatherClient != null) {
+            mWeatherClient.queryWeather();
+        }
+    }
+
     public void onWeatherUpdated(WeatherInfo weatherInfo) {
         mWeatherInfo = weatherInfo;
         notifyListeners();
@@ -110,32 +99,4 @@ public class QuickspaceController implements WeatherObserver {
             }
         });
     }
-
-    /*private class WeatherSettingsObserver extends ContentObserver {
-
-        private Handler mHandler;
-        private ContentResolver mResolver;
-
-        WeatherSettingsObserver(Handler handler, ContentResolver resolver) {
-            super(handler);
-            mHandler = handler;
-            mResolver = resolver;
-        }
-
-        public void register() {
-            mResolver.registerContentObserver(Settings.System.getUriFor(
-                    SETTING_WEATHER_LOCKSCREEN_UNIT), false, this);
-        }
-
-        @Override
-        public void onChange(boolean selfChange) {
-            super.onChange(selfChange);
-            updateLockscreenUnit();
-        }
-
-        public void updateLockscreenUnit() {
-            mUseImperialUnit = Settings.System.getInt(mResolver, SETTING_WEATHER_LOCKSCREEN_UNIT, 0) != 0;
-            notifyListeners();
-        }
-    }*/
 }

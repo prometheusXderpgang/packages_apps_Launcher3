@@ -56,10 +56,14 @@ import com.android.launcher3.R;
 import com.android.launcher3.Utilities;
 import com.android.launcher3.compat.LauncherAppsCompat;
 import com.android.launcher3.util.Themes;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 
 import com.android.launcher3.quickspace.QuickspaceController.OnDataListener;
 import com.android.launcher3.quickspace.receivers.QuickSpaceActionReceiver;
 import com.android.launcher3.quickspace.views.DateTextView;
+import com.android.launcher3.quickspace.OmniJawsClient;
 
 public class QuickSpaceView extends FrameLayout implements AnimatorUpdateListener, Runnable, OnDataListener {
 
@@ -86,6 +90,7 @@ public class QuickSpaceView extends FrameLayout implements AnimatorUpdateListene
     public boolean mWeatherAvailable;
 
     private QuickSpaceActionReceiver mActionReceiver;
+    private OmniJawsClient mWeatherClient;
     public QuickspaceController mController;
 
     public QuickSpaceView(Context context, AttributeSet set) {
@@ -144,14 +149,16 @@ public class QuickSpaceView extends FrameLayout implements AnimatorUpdateListene
         mTitleSeparator.setVisibility(mWeatherAvailable ? View.VISIBLE : View.GONE);
     }
 
-    public final void bindWeather(View container, TextView title, ImageView icon) {
+    public final void bindWeather(View container, TextView title, ImageView drawable) {
         boolean hasGoogleApp = LauncherAppState.getInstanceNoCreate().isSearchAppAvailable();
         mWeatherAvailable = mController.isWeatherAvailable();
+	OmniJawsClient.WeatherInfo weatherData = mWeatherClient.getWeatherInfo();
+	Drawable d = mWeatherClient.getWeatherConditionImage(weatherData.conditionCode);
         if (mWeatherAvailable) {
             container.setVisibility(View.VISIBLE);
             container.setOnClickListener(hasGoogleApp ? mActionReceiver.getWeatherAction() : null);
-            title.setText(mController.getWeatherTemp());
-            icon.setImageIcon(mController.getWeatherIcon());
+            title.setText(weatherData.temp + " " + weatherData.tempUnits);
+	    drawable.setImageDrawable(d);
             return;
         }
         container.setVisibility(View.GONE);
